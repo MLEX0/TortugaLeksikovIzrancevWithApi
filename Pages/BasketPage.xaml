@@ -56,7 +56,8 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   Grid.Column="0"
                   Grid.ColumnSpan="3"
-                  KeyDown="lvOrder_KeyDown" d:ItemsSource="{d:SampleData ItemCount=5}"
+                  KeyDown="lvOrder_KeyDown" 
+                  d:ItemsSource="{d:SampleData ItemCount=5}"
                   >
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -89,14 +90,12 @@
                                    Text="{Binding OrderTotalCostOfProduct}">
 
                         </TextBlock>
-
                         <Image Grid.RowSpan="2"
                                Grid.ColumnSpan="2">
                             <Image.Source>
-                                <Binding Path="MainImage"></Binding>
+                                <Binding Path="ByteImage" 
+                                         TargetNullValue="{x:Null}"/>
                             </Image.Source>
-
-                            
                         </Image>
                         <TextBlock Grid.Row="2"
                                    Grid.ColumnSpan="2"
@@ -144,12 +143,6 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <!--<ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Наименование" Width="100" DisplayMemberBinding="{Binding ProductName}"></GridViewColumn>
-                    <GridViewColumn Header="Цена" Width="100" DisplayMemberBinding="{Binding Cost}"></GridViewColumn>
-                </GridView>
-            </ListView.View>-->
         </ListView>
 
 
@@ -194,12 +187,15 @@
                 
             </RadioButton>
         </StackPanel>    
+        
         <Button x:Name="btnGoBasket"
             Grid.Row="4"
                 Grid.Column="3"
                 Width="110"
                 Height="40"
-                Content="Оформить заказ" Click="btnGoBasket_Click" >
+                Content="Оформить заказ" 
+                Click="btnGoBasket_Click" 
+                >
 
         </Button>
     </Grid>

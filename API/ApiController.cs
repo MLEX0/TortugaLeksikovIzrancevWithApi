@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -53,20 +54,32 @@ namespace TartugaLeksikovIzrancev.API
 
         public async Task<Order> PostCreateOrder(Order order)
         {
-            Order ID = null;
+            Order responce = null;
             HttpResponseMessage response = await client.PostAsJsonAsync("order/", order);
-            ID = await response.Content.ReadAsAsync<Order>();
-            order.IDOrder = ID.IDOrder;
+            responce = await response.Content.ReadAsAsync<Order>();
+            order.IDOrder = responce.IDOrder;
+            order.status = responce.status;
             return order;
         }
 
         public async Task<OrderProduct> PostCreateOrderProduct(OrderProduct orderProduct)
         {
-            OrderProduct ID = null;
+            OrderProduct responce = null;
             HttpResponseMessage response = await client.PostAsJsonAsync("orderproduct/", orderProduct);
-            ID = await response.Content.ReadAsAsync<OrderProduct>();
-            orderProduct.IDOrderProduct = ID.IDOrderProduct;
+            responce = await response.Content.ReadAsAsync<OrderProduct>();
+            orderProduct.IDOrderProduct = responce.IDOrderProduct;
+            orderProduct.status = responce.status;
             return orderProduct;
         }
+
+        public Byte[] GetImage(string path)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                    byte[] data = webClient.DownloadData($"http://php/uploads/{path}");
+                    return data;
+            }
+        }
+
     }
 }

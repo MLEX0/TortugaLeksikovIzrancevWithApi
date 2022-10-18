@@ -12,5 +12,6 @@ namespace TartugaLeksikovIzrancev.Model
         public int IDOrder { get; set; }
         public int IDProduct { get; set; }
         public int Count { get; set; }
+        public bool status { get; set; }
     }
 }

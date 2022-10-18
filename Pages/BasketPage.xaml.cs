@@ -107,19 +107,29 @@ namespace TartugaLeksikovIzrancev.Pages
 
                 order = await AppData.Context.PostCreateOrder(order);
 
-                Model.OrderProduct orderProduct = new Model.OrderProduct();
-
-                foreach (Model.Product prod in GlobalInformation.ListOfOrder.Distinct())
+                //Проверка на то, что заказ создан
+                if (order.status)
                 {
-                    orderProduct.IDOrder = order.IDOrder;
-                    orderProduct.IDProduct = prod.IDProduct;
-                    orderProduct.Count = prod.OrderProdCount;
-                    orderProduct = await AppData.Context.PostCreateOrderProduct(orderProduct);
+                    Model.OrderProduct orderProduct = new Model.OrderProduct();
+
+                    foreach (Model.Product prod in GlobalInformation.ListOfOrder.Distinct())
+                    {
+                        orderProduct.IDOrder = order.IDOrder;
+                        orderProduct.IDProduct = prod.IDProduct;
+                        orderProduct.Count = prod.OrderProdCount;
+                        orderProduct = await AppData.Context.PostCreateOrderProduct(orderProduct);
+                    }
+
+                    MessageBox.Show($"Заказ №{order.IDOrder} успешно оформлен!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                    GlobalInformation.ListOfOrder.Clear();
+                    PageController.MainFrame.Content = new StartPage();
+                }
+                else 
+                {
+                    MessageBox.Show("Отсутствует соединение с сервером, невозможно создать заказ", 
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                MessageBox.Show($"Заказ №{order.IDOrder} успешно оформлен!");
-                GlobalInformation.ListOfOrder.Clear();
-                PageController.MainFrame.Content = new StartPage();
             }
             catch (Exception er)
             {

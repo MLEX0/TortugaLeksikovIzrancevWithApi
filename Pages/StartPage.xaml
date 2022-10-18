@@ -101,22 +101,6 @@
                    Foreground="White"
                    />
 
-
-                        <!--<Border 
-                                Grid.RowSpan="6"
-                                BorderThickness="1"
-                                BorderBrush="{x:Null}"
-                                Margin="10 5 5 5">
-
-            <Image>
-                <Image.Source>
-                    <Binding Path="ProductImage">
-
-                    </Binding>
-                </Image.Source>
-            </Image>
-        </Border>-->
-
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

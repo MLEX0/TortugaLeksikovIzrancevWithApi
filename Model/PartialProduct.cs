@@ -10,6 +10,7 @@ namespace TartugaLeksikovIzrancev.Model
 {
     public partial class Product
     {
+
         public int OrderProdCount
         {
             get
@@ -23,9 +24,26 @@ namespace TartugaLeksikovIzrancev.Model
         {
             get
             {
-                decimal res = GlobalInformation.ListOfOrder.Count(i => i.ProductName == ProductName) * Cost;
+                decimal res = OrderProdCount * Cost;
                 return res;
             }
         }
+
+        public Byte[] ByteImage 
+        {
+            get 
+            {
+                if (!String.IsNullOrEmpty(MainImage))
+                {
+
+                    return AppData.Context.GetImage(MainImage);
+                }
+                else 
+                { 
+                    return null;
+                }
+            } 
+        }
+
     }
 }

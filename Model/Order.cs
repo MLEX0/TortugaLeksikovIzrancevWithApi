@@ -16,5 +16,6 @@ namespace TartugaLeksikovIzrancev.Model
         public bool IsCashless { get; set; }
         public Nullable<int> IDPromocode { get; set; }
         public int IDStatus { get; set; }
+        public bool status { get; set; }
     }
 }

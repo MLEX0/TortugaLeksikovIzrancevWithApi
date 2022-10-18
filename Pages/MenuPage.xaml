@@ -82,20 +82,20 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!--<Image Grid.RowSpan="2"
+                        <Image Grid.RowSpan="2"
                                Grid.ColumnSpan="2">
                             <Image.Source>
-                                <Binding Path="MainImage"></Binding>
+                                <Binding Path="ByteImage" TargetNullValue="{x:Null}"/>
                             </Image.Source>
+                        </Image>
 
-                        </Image>-->
                         <TextBlock Grid.Row="3"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
                                    TextAlignment="Center"
                                    FontSize="14"
                                    Text="{Binding Cost}">
-                            
+
                         </TextBlock>
                         <TextBlock Grid.Row="2"
                                    Grid.ColumnSpan="2"
@@ -121,16 +121,6 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-
-            <!--<ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Наименование" Width="100" DisplayMemberBinding="{Binding ProductName}"></GridViewColumn>
-                    <GridViewColumn Header="Цена" Width="100" DisplayMemberBinding="{Binding Cost}"></GridViewColumn>
-                    <GridViewColumn Header="Вес (г)" Width="100" DisplayMemberBinding="{Binding Weight}"></GridViewColumn>
-
-                </GridView>
-            </ListView.View>-->
         </ListView>
 
 
