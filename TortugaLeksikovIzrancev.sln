@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TortugaLeksikovIzrancev", "TortugaLeksikovIzrancev.csproj", "{3E432D5D-FDE4-4AC4-9654-0DAE2C4F8B59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTest", "..\ApiTest\ApiTest.csproj", "{DFCDB556-5D90-48EE-AB4E-0017976190E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E432D5D-FDE4-4AC4-9654-0DAE2C4F8B59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E432D5D-FDE4-4AC4-9654-0DAE2C4F8B59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E432D5D-FDE4-4AC4-9654-0DAE2C4F8B59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E432D5D-FDE4-4AC4-9654-0DAE2C4F8B59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFCDB556-5D90-48EE-AB4E-0017976190E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFCDB556-5D90-48EE-AB4E-0017976190E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFCDB556-5D90-48EE-AB4E-0017976190E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFCDB556-5D90-48EE-AB4E-0017976190E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4CB20C0B-E5F9-4F63-B2FC-C84D351138BE}
+	EndGlobalSection
+EndGlobal

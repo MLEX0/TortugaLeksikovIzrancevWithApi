@@ -1,0 +1,161 @@
+﻿<Page x:Class="TartugaLeksikovIzrancev.Pages.MenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TartugaLeksikovIzrancev.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MenuPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="White" Grid.RowSpan="9"
+                Grid.ColumnSpan="9"/>
+
+        <WrapPanel 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            <TextBlock x:Name="txtTable"  
+                       FontSize="20"
+                   >
+
+            </TextBlock>
+            <Button x:Name="btnBack" 
+                    Content="Изменить"
+                    Click="btnBack_Click" 
+                    Margin="10 0"
+                    FontSize="20"
+                    >
+
+            </Button>
+        </WrapPanel>
+        <TextBlock Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="Меню"
+                   FontSize="30">
+
+        </TextBlock>
+
+        <ListView x:Name="lvMenu"
+                  Grid.RowSpan="4"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  MouseRightButtonDown="lvMenu_MouseRightButtonDown"
+                  MouseDoubleClick="lvMenu_MouseDoubleClick" Margin="-5,110,5,2.778" d:ItemsSource="{d:SampleData ItemCount=5}"
+                  >
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="180"
+                          Width="160"
+          
+                          Background="LightGray">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--<Image Grid.RowSpan="2"
+                               Grid.ColumnSpan="2">
+                            <Image.Source>
+                                <Binding Path="MainImage"></Binding>
+                            </Image.Source>
+
+                        </Image>-->
+                        <TextBlock Grid.Row="3"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   FontSize="14"
+                                   Text="{Binding Cost}">
+                            
+                        </TextBlock>
+                        <TextBlock Grid.Row="2"
+                                   Grid.ColumnSpan="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   FontSize="12"
+                                   Text="{Binding ProductName}">
+
+                        </TextBlock>
+                        <Button Grid.Column="2"
+                                Grid.Row="3"
+                                Width="30"
+                                Content="+"
+                                FontSize="18"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Margin=" 3"
+                                Click="Button_Click"
+                                >
+
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+            <!--<ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Наименование" Width="100" DisplayMemberBinding="{Binding ProductName}"></GridViewColumn>
+                    <GridViewColumn Header="Цена" Width="100" DisplayMemberBinding="{Binding Cost}"></GridViewColumn>
+                    <GridViewColumn Header="Вес (г)" Width="100" DisplayMemberBinding="{Binding Weight}"></GridViewColumn>
+
+                </GridView>
+            </ListView.View>-->
+        </ListView>
+
+
+        <ListView x:Name="lvCategory"
+                  Grid.Row="1"
+                  Grid.RowSpan="2"
+                  Grid.Column="4"
+                  SelectionChanged="lvCategory_SelectionChanged"
+                  d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Наименование" Width="100" DisplayMemberBinding="{Binding NameCategory}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button x:Name="btnGoBasket"
+            Grid.Row="3"
+                Grid.Column="3"
+                Width="100"
+                Height="40"
+                FontSize="20"
+                Content="В корзину" Click="btnGoBasket_Click">
+
+        </Button>
+    </Grid>
+
+</Page>
