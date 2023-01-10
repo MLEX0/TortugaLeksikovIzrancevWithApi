@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TortugaLeksikovIzrancev", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTest", "..\ApiTest\ApiTest.csproj", "{DFCDB556-5D90-48EE-AB4E-0017976190E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TortugaLeksikovIzrancev_Test", "..\TortugaLeksikovIzrancev_Test\TortugaLeksikovIzrancev_Test.csproj", "{83150DD5-46FD-47A6-ADD7-6232CDB6762E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DFCDB556-5D90-48EE-AB4E-0017976190E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFCDB556-5D90-48EE-AB4E-0017976190E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFCDB556-5D90-48EE-AB4E-0017976190E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83150DD5-46FD-47A6-ADD7-6232CDB6762E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83150DD5-46FD-47A6-ADD7-6232CDB6762E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83150DD5-46FD-47A6-ADD7-6232CDB6762E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83150DD5-46FD-47A6-ADD7-6232CDB6762E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

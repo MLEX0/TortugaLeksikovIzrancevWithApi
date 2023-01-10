@@ -11,21 +11,20 @@ namespace TartugaLeksikovIzrancev.Model
     public partial class Product
     {
 
-        public int OrderProdCount
-        {
-            get
-            {
-                int res = GlobalInformation.ListOfOrder.Count(i => i.ProductName == ProductName);
-                return res;
-            }
+        public int QuantityInCart { get; set; }
 
-        }
-        public decimal OrderTotalCostOfProduct
+        public string InCart
         {
             get
             {
-                decimal res = OrderProdCount * Cost;
-                return res;
+                if (QuantityInCart > 0)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Hidden";
+                }
             }
         }
 

@@ -31,7 +31,6 @@ namespace TartugaLeksikovIzrancev.API
             restaurantTable = await response.Content.ReadAsAsync<RestaurantTable[]>();
 
             return restaurantTable;
-
         }
 
         public async Task<List<Category>> GetAllCategories()

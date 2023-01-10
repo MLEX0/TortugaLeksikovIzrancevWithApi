@@ -23,13 +23,13 @@ namespace TartugaLeksikovIzrancev.Pages
     public partial class StartPage : Page
     {
         static Model.RestaurantTable[] restaurantTables;
-        //ListView tables;
         public StartPage()
         {
             InitializeComponent();
             AppData.updateContext();
             AppData.Context.RunAsync().GetAwaiter().GetResult();
 ;           GetTables();
+            GlobalInformation.Cart.Clear();
         }
 
         public async void GetTables() 
@@ -39,14 +39,16 @@ namespace TartugaLeksikovIzrancev.Pages
         }
 
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+
+        private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (sender is Grid obj)
             {
                 if (obj.DataContext is Model.RestaurantTable table)
                 {
-                    GlobalInformation.IDTable = table;
-                    PageController.MainFrame.Navigate(new MenuPage(table));
+                    GlobalInformation.SelectedTableNumber = table.IDTable;
+                    PageController.StaticMenu = new MenuPage(table);
+                    PageController.MainFrame.Navigate(PageController.StaticMenu);
                 }
             }
         }

@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TartugaLeksikovIzrancev.Classes;
-using TartugaLeksikovIzrancev.API;
 
 namespace TartugaLeksikovIzrancev.Pages
 {
@@ -91,6 +81,25 @@ namespace TartugaLeksikovIzrancev.Pages
         }
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
+            if (GlobalInformation.Cart.Count > 0)
+            {
+                var result = MessageBox.Show("Внимание!\n" +
+                "Если вы измените столик ваша корзина будет очищена!",
+                "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    GoBackToSelectTable();
+                }
+            }
+            else 
+            {
+                GoBackToSelectTable();
+            }
+        }
+
+        private void GoBackToSelectTable() 
+        {
             PageController.MainFrame.Navigate(new StartPage());
         }
 
@@ -110,29 +119,48 @@ namespace TartugaLeksikovIzrancev.Pages
 
 
         //Метод добавления продукта в корзину 
-        private void lvMenu_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if(lvMenu.SelectedItem is Model.Product)
-            {
-                var prod = lvMenu.SelectedItem as Model.Product;
-                GlobalInformation.ListOfOrder.Add(prod);
-                MessageBox.Show(prod.ProductName + " Добавлено в корзину");
-            }
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            lvMenu.SelectedItem = (sender as Button).DataContext;
-        
-            var prod = lvMenu.SelectedItem as Model.Product;
-            GlobalInformation.ListOfOrder.Add(prod);
-            MessageBox.Show(prod.ProductName + " Добавлено в корзину");
-            
-        }
 
         private void lvCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Filter();
+        }
+
+        private void btnPlus_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button) 
+            {
+                if (button.DataContext is Model.Product prod)
+                {
+                    if (prod.QuantityInCart >= 1)
+                    {
+                        prod.QuantityInCart++;
+                    }
+                    else if (prod.InCart == "Hidden")
+                    {
+                        prod.QuantityInCart++;
+                        GlobalInformation.Cart.Add(prod);
+                        MessageBox.Show(prod.ProductName + " добавлено в корзину");
+                    }
+                    Filter();
+                }
+            }
+        }
+
+        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button) 
+            {
+                if (button.DataContext is Model.Product prod)
+                {
+                    prod.QuantityInCart--;
+                    if(prod.QuantityInCart == 0)
+                    {
+                        GlobalInformation.Cart.Remove(prod);
+                    }
+                    Filter();
+                }
+            }
         }
     }
 }

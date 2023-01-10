@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using TartugaLeksikovIzrancev.Pages;
 
 namespace TartugaLeksikovIzrancev.Classes
 {
@@ -11,5 +12,6 @@ namespace TartugaLeksikovIzrancev.Classes
     public class PageController
     {
        public static Frame MainFrame { get; set; } = new Frame();
+       public static MenuPage StaticMenu { get; set; }
     }
 }

@@ -71,7 +71,7 @@
 
                     <Grid Width="80"
                           Height="80"
-                          MouseDown="Grid_MouseDown"
+                          MouseLeftButtonUp="Grid_MouseLeftButtonUp"
                           >
 
                         <Grid.ColumnDefinitions>

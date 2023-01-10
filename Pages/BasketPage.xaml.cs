@@ -23,6 +23,19 @@ namespace TartugaLeksikovIzrancev.Pages
     /// </summary>
     public partial class BasketPage : Page
     {
+        public static decimal TotalPrice 
+        {
+            get 
+            {
+                decimal totalCost = 0;
+                foreach (Model.Product prod in GlobalInformation.Cart) 
+                {
+                    totalCost += prod.Cost * prod.QuantityInCart;   
+                }
+                totalCost = totalCost - (totalCost * GlobalInformation.GlobalDiscount);
+                return totalCost;
+            }
+        }
 
         public BasketPage()
         {
@@ -35,10 +48,10 @@ namespace TartugaLeksikovIzrancev.Pages
         public void Refresh()
         {
             lvOrder.ItemsSource = null;
-            tbPrice.Text = "Итоговая стоимость: " + totalPrice();
-            tbTable.Text = "Ваш столик: " + GlobalInformation.IDTable.IDTable;
-            lvOrder.ItemsSource = GlobalInformation.ListOfOrder.Distinct().OrderBy(i=>i.IDProduct);
-            if (GlobalInformation.ListOfOrder.Count < 1)
+            tbPrice.Text = "Итоговая стоимость: " + TotalPrice;
+            tbTable.Text = "Ваш столик: " + GlobalInformation.SelectedTableNumber;
+            lvOrder.ItemsSource = GlobalInformation.Cart.OrderBy(i=>i.IDProduct);
+            if (GlobalInformation.Cart.Count < 1)
             {
                 btnGoBasket.IsEnabled = false;
             }
@@ -48,21 +61,10 @@ namespace TartugaLeksikovIzrancev.Pages
             }
         }
 
-        //Метод Высчитывающий итоговую стоимость заказа
-        public string totalPrice()
-        {
-            decimal totalCost = 0;
-            foreach(Model.Product prod in GlobalInformation.ListOfOrder)
-            {
-
-                totalCost += prod.Cost;
-            }
-            
-            return Convert.ToString(totalCost);
-        }
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            PageController.MainFrame.Navigate(new MenuPage(GlobalInformation.IDTable));
+            PageController.StaticMenu.Filter();
+            PageController.MainFrame.Navigate(PageController.StaticMenu);
         }
 
         //мeтод удаляющий запись ил ListView при нажатии Delete
@@ -73,7 +75,7 @@ namespace TartugaLeksikovIzrancev.Pages
                 if(lvOrder.SelectedItem is Model.Product)
                 {
                     var prod = lvOrder.SelectedItem as Model.Product;
-                    GlobalInformation.ListOfOrder.Remove(prod);
+                    GlobalInformation.Cart.Remove(prod);
                     Refresh();
                 }
             }
@@ -81,7 +83,7 @@ namespace TartugaLeksikovIzrancev.Pages
 
         private async void btnGoBasket_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalInformation.ListOfOrder.Count < 1) 
+            if (GlobalInformation.Cart.Count < 1) 
             {
                 MessageBox.Show($"Корзина пуста!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -90,8 +92,8 @@ namespace TartugaLeksikovIzrancev.Pages
             try
             {
                 Model.Order order = new Model.Order();
-                order.TotalCost = Convert.ToDecimal(totalPrice());
-                order.IDRestourantTable = Convert.ToInt32(GlobalInformation.IDTable.IDTable);
+                order.TotalCost = TotalPrice;
+                order.IDRestourantTable = Convert.ToInt32(GlobalInformation.SelectedTableNumber);
                 order.OrderTime = DateTime.Now;
                 order.IDEmployee = 1;
                 order.IDPromocode = null;
@@ -112,16 +114,16 @@ namespace TartugaLeksikovIzrancev.Pages
                 {
                     Model.OrderProduct orderProduct = new Model.OrderProduct();
 
-                    foreach (Model.Product prod in GlobalInformation.ListOfOrder.Distinct())
+                    foreach (Model.Product prod in GlobalInformation.Cart)
                     {
                         orderProduct.IDOrder = order.IDOrder;
                         orderProduct.IDProduct = prod.IDProduct;
-                        orderProduct.Count = prod.OrderProdCount;
+                        orderProduct.Count = prod.QuantityInCart;
                         orderProduct = await AppData.Context.PostCreateOrderProduct(orderProduct);
                     }
 
                     MessageBox.Show($"Заказ №{order.IDOrder} успешно оформлен!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                    GlobalInformation.ListOfOrder.Clear();
+                    GlobalInformation.Cart.Clear();
                     PageController.MainFrame.Content = new StartPage();
                 }
                 else 
@@ -141,18 +143,33 @@ namespace TartugaLeksikovIzrancev.Pages
 
         private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
-            Model.Product btn = (sender as Button).DataContext as Model.Product;
-            GlobalInformation.ListOfOrder.Add(btn);
-            Refresh();
+            if (sender is Button button)
+            {
+                if (button.DataContext is Model.Product prod)
+                {
+                    if (prod.QuantityInCart >= 1)
+                    {
+                        prod.QuantityInCart++;
+                    }
+                    Refresh();
+                }
+            }
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
-            lvOrder.SelectedItem = (sender as Button).DataContext;
-
-            var prod = lvOrder.SelectedItem as Model.Product;
-            GlobalInformation.ListOfOrder.Remove(prod);
-            Refresh();
+            if (sender is Button button)
+            {
+                if (button.DataContext is Model.Product prod)
+                {
+                    prod.QuantityInCart--;
+                    if (prod.QuantityInCart == 0)
+                    {
+                        GlobalInformation.Cart.Remove(prod);
+                    }
+                    Refresh();
+                }
+            }
         }
     }
 }

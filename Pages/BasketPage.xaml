@@ -87,7 +87,7 @@
                                    TextAlignment="Center"
                                    FontSize="14"
                                    Margin="5 0 0 0"
-                                   Text="{Binding OrderTotalCostOfProduct}">
+                                   Text="{Binding Cost}">
 
                         </TextBlock>
                         <Image Grid.RowSpan="2"
@@ -121,7 +121,7 @@
                             </Button>
                             <TextBlock x:Name="tbCount"
                                     Width="30"
-                                    Text="{Binding OrderProdCount}"
+                                    Text="{Binding QuantityInCart}"
                                     TextAlignment="Center"
                                     FontSize="18" 
                                     Margin=" 3"

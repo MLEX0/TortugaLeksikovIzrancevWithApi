@@ -56,8 +56,8 @@
                   Grid.Column="0"
                   Grid.ColumnSpan="3"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  MouseRightButtonDown="lvMenu_MouseRightButtonDown"
-                  MouseDoubleClick="lvMenu_MouseDoubleClick" Margin="-5,110,5,2.778" d:ItemsSource="{d:SampleData ItemCount=5}"
+                  MouseDoubleClick="lvMenu_MouseDoubleClick" 
+                  Margin="-5,110,5,2.778" d:ItemsSource="{d:SampleData ItemCount=5}"
                   >
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -106,18 +106,50 @@
                                    Text="{Binding ProductName}">
 
                         </TextBlock>
-                        <Button Grid.Column="2"
-                                Grid.Row="3"
-                                Width="30"
-                                Content="+"
-                                FontSize="18"
-                                HorizontalContentAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                Margin=" 3"
-                                Click="Button_Click"
-                                >
+                        <TextBlock Grid.Row="2"
+                                   Grid.ColumnSpan="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   FontSize="12"
+                                   Text="{Binding ProductName}">
 
-                        </Button>
+                        </TextBlock>
+                        <WrapPanel Grid.Row="3"
+                                    Grid.ColumnSpan="2"
+                                     HorizontalAlignment="Right"
+                                   VerticalAlignment="Center">
+                            <Button x:Name="btnMinus"
+                                    Width="30"
+                                    Content="-"
+                                    FontSize="18" 
+                                    Margin="3"
+                                    Visibility="{Binding InCart}"
+                                    Click="btnMinus_Click"
+                                    >
+
+                            </Button>
+                            <TextBlock x:Name="tbCount"
+                                    Width="30"
+                                    Text="{Binding QuantityInCart}"
+                                    TextAlignment="Center"
+                                    FontSize="18" 
+                                    Margin="3"
+                                    Visibility="{Binding InCart}"
+                                    >
+
+                            </TextBlock>
+                            <Button x:Name="btnPlus"
+                                    Width="30"
+                                    Content="+"
+                                    FontSize="18" 
+                                    Margin=" 3"
+                                    Click="btnPlus_Click"
+                                    
+                                    >
+                            </Button>
+
+                        </WrapPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -143,7 +175,8 @@
                 Width="100"
                 Height="40"
                 FontSize="20"
-                Content="В корзину" Click="btnGoBasket_Click">
+                Content="В корзину" 
+                Click="btnGoBasket_Click">
 
         </Button>
     </Grid>
