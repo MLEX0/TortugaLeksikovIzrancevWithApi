@@ -25,17 +25,39 @@ namespace TartugaLeksikovIzrancev.Pages
         static Model.RestaurantTable[] restaurantTables;
         public StartPage()
         {
-            InitializeComponent();
-            AppData.updateContext();
-            AppData.Context.RunAsync().GetAwaiter().GetResult();
-;           GetTables();
+            try 
+            {
+                InitializeComponent();
+                AppData.updateContext();
+                AppData.Context.RunAsync().GetAwaiter().GetResult();
+                GetTables();
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка соединения с сервером!" +
+                    "\nПожалуйста, запустите сервер заново запустите приложение!",
+                    "Ошибка", MessageBoxButton.OK, 
+                    MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
             GlobalInformation.Cart.Clear();
         }
 
         public async void GetTables() 
         {
-            restaurantTables = await AppData.Context.GetAllTables();
-            lvTables.ItemsSource = restaurantTables.ToList();
+            try
+            {
+                restaurantTables = await AppData.Context.GetAllTables();
+                lvTables.ItemsSource = restaurantTables.ToList();
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка соединения с сервером!" +
+                    "\nПожалуйста, запустите сервер и заново запустите приложение!",
+                    "Ошибка", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
         }
 
 

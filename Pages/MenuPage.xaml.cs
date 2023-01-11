@@ -29,7 +29,18 @@ namespace TartugaLeksikovIzrancev.Pages
             List<Model.Product> products = new List<Model.Product>();
             if (GlobalProducts.Count == 0) 
             {
-                GlobalProducts = await AppData.Context.GetAllProducts();
+                try
+                {
+                    GlobalProducts = await AppData.Context.GetAllProducts();
+                }
+                catch
+                {
+                    MessageBox.Show("Ошибка соединения с сервером!" +
+                        "\nПожалуйста, запустите сервер и заново запустите приложение!",
+                        "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    Application.Current.Shutdown();
+                }
             }
             if (categories.Count == 0) 
             {
@@ -37,8 +48,19 @@ namespace TartugaLeksikovIzrancev.Pages
                     IDCategory = 0,
                     NameCategory = "Все"
                 };
-                categories = await AppData.Context.GetAllCategories();
-                categories.Insert(0, defaultCategory);
+                try
+                {
+                    categories = await AppData.Context.GetAllCategories();
+                }
+                    catch
+                {
+                    MessageBox.Show("Ошибка соединения с сервером!" +
+                        "\nПожалуйста, запустите сервер и заново запустите приложение!",
+                        "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    Application.Current.Shutdown();
+                }
+            categories.Insert(0, defaultCategory);
                 lvCategory.ItemsSource = categories;
             }
 

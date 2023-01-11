@@ -10,8 +10,10 @@ namespace TartugaLeksikovIzrancev.Model
 {
     public partial class Product
     {
-
+        
         public int QuantityInCart { get; set; }
+        private bool _isImageDownloaded = false;
+        public Byte[] SaveImage { get; set; } = null;
 
         public string InCart
         {
@@ -28,18 +30,28 @@ namespace TartugaLeksikovIzrancev.Model
             }
         }
 
-        public Byte[] ByteImage 
+        public Byte[] ByteImage
         {
             get 
             {
-                if (!String.IsNullOrEmpty(MainImage))
+                if (!String.IsNullOrEmpty(MainImage) && !_isImageDownloaded)
                 {
-
-                    return AppData.Context.GetImage(MainImage);
+                    Byte[] _res;
+                    try 
+                    {
+                       _res = AppData.Context.GetImage(MainImage);
+                    }
+                    catch
+                    {
+                        _res = null;
+                    }
+                    SaveImage = _res;
+                    _isImageDownloaded =true;
+                    return _res;
                 }
                 else 
                 { 
-                    return null;
+                    return SaveImage;
                 }
             } 
         }

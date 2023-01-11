@@ -126,16 +126,19 @@ namespace TartugaLeksikovIzrancev.Pages
                     GlobalInformation.Cart.Clear();
                     PageController.MainFrame.Content = new StartPage();
                 }
-                else 
+                else
                 {
-                    MessageBox.Show("Отсутствует соединение с сервером, невозможно создать заказ", 
+                    MessageBox.Show("Отсутствует соединение с сервером, невозможно создать заказ",
                         "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
             }
-            catch (Exception er)
+            catch 
             {
-                MessageBox.Show(er.Message).ToString();
+                MessageBox.Show(
+                    "Отсутствует соединение с сервером, невозможно оформить заказ" +
+                    "\nПопробуйте сделать это позже.",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
