@@ -162,7 +162,7 @@ namespace TartugaLeksikovIzrancev.Pages
                     {
                         prod.QuantityInCart++;
                         GlobalInformation.Cart.Add(prod);
-                        MessageBox.Show(prod.ProductName + " добавлено в корзину");
+                        //MessageBox.Show(prod.ProductName + " добавлено в корзину");
                     }
                     Filter();
                 }
